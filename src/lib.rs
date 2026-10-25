@@ -1,15 +1,8 @@
-pub const APPLICATION_NAME: &str = "restic-monitor";
+use actix_web::web;
 
-pub fn run() {
-    println!("{APPLICATION_NAME}");
-}
+mod entity;
+mod initial_setup;
 
-#[cfg(test)]
-mod tests {
-    use super::APPLICATION_NAME;
-
-    #[test]
-    fn exposes_the_application_name() {
-        assert_eq!(APPLICATION_NAME, "restic-monitor");
-    }
+pub fn init_routes(cfg: &mut web::ServiceConfig) {
+    initial_setup::init_routes(cfg);
 }

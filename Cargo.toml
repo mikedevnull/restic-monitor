@@ -2,7 +2,7 @@
 name = "restic-monitor"
 version = "0.1.0"
 edition = "2024"
-rust-version = "1.85"
+rust-version = "1.91"
 
 [lib]
 name = "restic_monitor"
@@ -11,3 +11,7 @@ path = "src/lib.rs"
 [[bin]]
 name = "restic-monitor"
 path = "src/main.rs"
+
+[dependencies]
+rustic_backend = "0.7.0"
+rustic_core = "0.13.0"

@@ -1,3 +1,5 @@
-fn main() {
-    restic_monitor::run();
+use std::error::Error;
+
+fn main() -> Result<(), Box<dyn Error>> {
+    Ok(())
 }

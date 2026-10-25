@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{%block title%}Restic Monitor - Initial setup{% endblock%}
+{%block content%}
+<div class="bg-base-100 shadow-xl rounded-md max-w-md p-4 mx-auto">
+    <h1 class="font-medium text-2xl">Initial setup</h1>
+    <p>Please enter a password for the <i><u>admin</u></i> user.</p>
+    <form method="post" class="flex flex-col gap-2 mt-4">
+        <fieldset class=" fieldset">
+            <label class="label">Username</label>
+            <input type="text" name="username" class="input validator w-full" value="admin" disabled required />
+            <p class="validator-hint hidden">Required</p>
+        </fieldset>
+
+        <fieldset class="fieldset">
+            <label class="label">Password</label>
+            <input type="password" name="password" minlength="6" id="password" class="input validator w-full"
+                placeholder="Password" required />
+            <p class="validator-hint hidden">Required - must be at least 6 characters long</p>
+        </fieldset>
+
+        <label class="fieldset">
+            <span class="label">Confirm password</span>
+            <input type="password" id="password_confirm" class="input validator w-full" placeholder="Password" required
+                oninput="check()" />
+            <span class="validator-hint hidden">Passwords do not match</span>
+        </label>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+
+    </form>
+</div>
+{%endblock%}
+
+{%block script %}
+function check() {
+var input = document.getElementById('password_confirm');
+if (input.value != document.getElementById('password').value) {
+input.setCustomValidity('Password must be Matching.');
+} else {
+// input is valid -- reset the error message
+input.setCustomValidity('');
+}
+}
+{% endblock %}

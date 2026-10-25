@@ -1,8 +1,9 @@
 use actix_files as fs;
 
 use actix_web::{App, HttpResponse, HttpServer, Responder, get, middleware::Logger, web};
-use env_logger::Env;
 
+use migration::{Migrator, MigratorTrait};
+use sea_orm::Database;
 use tera::{Context, Tera};
 
 #[get("/")]
@@ -16,15 +17,22 @@ async fn index(tera: web::Data<Tera>) -> impl Responder {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    env_logger::Builder::from_env(Env::default().default_filter_or("info")).init();
+    tracing_subscriber::fmt::init();
     let mut tera = Tera::default();
     tera.load_from_glob("templates/**/*.html")
         .expect("Failed to load templates");
+
+    let database_url = "sqlite://app.db?mode=rwc";
+    let conn = Database::connect(database_url)
+        .await
+        .expect("Failed to connect to database");
+    Migrator::up(&conn, None).await.unwrap();
 
     HttpServer::new(move || {
         App::new()
             .wrap(Logger::default())
             .app_data(web::Data::new(tera.clone()))
+            .app_data(web::Data::new(conn.clone()))
             .service(index)
             .service(fs::Files::new("/static", "./templates/static").show_files_listing())
     })

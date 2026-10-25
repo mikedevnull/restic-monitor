@@ -3,6 +3,7 @@ use actix_files as fs;
 use actix_web::{App, HttpResponse, HttpServer, Responder, get, middleware::Logger, web};
 
 use migration::{Migrator, MigratorTrait};
+use restic_monitor::init_routes;
 use sea_orm::Database;
 use tera::{Context, Tera};
 
@@ -35,6 +36,7 @@ async fn main() -> std::io::Result<()> {
             .app_data(web::Data::new(conn.clone()))
             .service(index)
             .service(fs::Files::new("/static", "./templates/static").show_files_listing())
+            .configure(init_routes)
     })
     .bind("127.0.0.1:8080")?
     .run()

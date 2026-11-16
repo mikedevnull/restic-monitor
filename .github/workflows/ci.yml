@@ -2,10 +2,15 @@ name: CI
 
 on:
   push:
+    branches:
+      - master
   pull_request:
+    branches:
+      - master
 
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
   rust:
@@ -14,15 +19,37 @@ jobs:
     steps:
       - name: Check out source
         uses: actions/checkout@v7
+
+      - name: Check for Rust changes
+        id: changes
+        uses: dorny/paths-filter@v4
+        with:
+          filters: |
+            rust:
+              - '**/Cargo.toml'
+              - '**/Cargo.lock'
+              - 'examples/**'
+              - 'src/**'
+              - 'templates/**'
+
       - name: Install stable Rust
+        if: steps.changes.outputs.rust == 'true'
         uses: dtolnay/rust-toolchain@stable
         with:
           components: clippy, rustfmt
+
       - name: Check formatting
+        if: steps.changes.outputs.rust == 'true'
         run: cargo fmt --all -- --check
+
       - name: Run Clippy
+        if: steps.changes.outputs.rust == 'true'
         run: cargo clippy --all-targets --all-features -- -D warnings
+
       - name: Run tests
+        if: steps.changes.outputs.rust == 'true'
         run: cargo test --all-targets --all-features
+
       - name: Build release binary
+        if: steps.changes.outputs.rust == 'true'
         run: cargo build --release

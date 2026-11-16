@@ -55,7 +55,6 @@ async fn setup_admin_user(
         let user = user::ActiveModel {
             name: Set("admin".to_owned()),
             password: Set(hashed_password.to_string()),
-            ..Default::default() // all other attributes are `NotSet`
         };
         let _result = user.insert(db.get_ref()).await?;
         Ok(HttpResponse::Created()

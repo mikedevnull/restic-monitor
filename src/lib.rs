@@ -26,7 +26,7 @@ pub fn setup_tera() -> Tera {
     let mut tera = Tera::default();
     tera.load_from_glob("templates/**/*.html")
         .expect("Failed to load templates");
-    return tera;
+    tera
 }
 
 pub async fn setup_db_with_migrations(database_url: &str) -> DatabaseConnection {

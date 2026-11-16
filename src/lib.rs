@@ -1,9 +1,8 @@
 use actix_web::{HttpResponse, Responder, get, web};
-use migration::{Migrator, MigratorTrait};
-use sea_orm::{ConnectOptions, Database, DatabaseConnection};
 use tera::{Context, Tera};
 
-mod entity;
+pub mod auth;
+mod db;
 mod error;
 mod initial_setup;
 mod testing;
@@ -29,12 +28,10 @@ pub fn setup_tera() -> Tera {
     tera
 }
 
-pub async fn setup_db_with_migrations(database_url: &str) -> DatabaseConnection {
-    let mut opt = ConnectOptions::new(database_url.to_owned());
-    opt.max_connections(2).sqlx_logging(true);
-    let conn = Database::connect(opt)
+pub async fn setup_db_with_migrations(database_url: &str) -> sqlx::SqlitePool {
+    let pool = sqlx::SqlitePool::connect(database_url).await.unwrap();
+    db::migrate(pool.clone())
         .await
-        .expect("Failed to connect to database");
-    Migrator::up(&conn, None).await.unwrap();
-    conn
+        .expect("Database migration failed");
+    pool
 }

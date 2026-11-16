@@ -2,7 +2,7 @@ use actix_files as fs;
 
 use actix_web::{App, HttpServer, middleware::Logger, web};
 
-use restic_monitor::{init_routes, setup_db_with_migrations, setup_tera};
+use restic_monitor::{auth, init_routes, setup_db_with_migrations, setup_tera};
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -15,6 +15,7 @@ async fn main() -> std::io::Result<()> {
             .wrap(Logger::default())
             .app_data(web::Data::new(tera.clone()))
             .app_data(web::Data::new(db.clone()))
+            .app_data(web::Data::new(auth::AuthService::new(db.clone())))
             .service(fs::Files::new("/static", "./templates/static").show_files_listing())
             .configure(init_routes)
     })

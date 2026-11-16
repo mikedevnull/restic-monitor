@@ -1,3 +1,10 @@
 {
-    "rust-analyzer.check.command": "clippy"
+    "rust-analyzer.check.command": "clippy",
+    "rust-analyzer.cargo.extraEnv": {
+        "DATABASE_URL": "sqlite://app.db"
+    },
+    "rust-analyzer.server.extraEnv": {
+        "DATABASE_URL": "sqlite://app.db"
+    },
+    "editor.formatOnSave": true
 }

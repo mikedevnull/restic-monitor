@@ -3,7 +3,9 @@ use thiserror::Error;
 #[derive(Error, Debug)]
 pub enum RustMonitorError {
     #[error("Database related error")]
-    Database(#[from] sea_orm::DbErr),
+    Database(#[from] sqlx::Error),
+    #[error("Auth related error")]
+    AuthError(#[from] argon2::password_hash::Error),
 }
 
 impl actix_web::ResponseError for RustMonitorError {

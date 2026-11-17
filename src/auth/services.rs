@@ -1,7 +1,7 @@
 use argon2::{Argon2, PasswordHasher, PasswordVerifier};
 use sqlx::SqlitePool;
 
-use crate::{auth::repositores::UserRepository, error::RustMonitorError};
+use crate::{auth::repositories::UserRepository, error::RustMonitorError};
 
 pub struct AuthService {
     user_repo: UserRepository,

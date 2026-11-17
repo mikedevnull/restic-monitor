@@ -1433,6 +1433,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "dirs"
+version = "7.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8d57d423b3c82e89b9a24ca3091fee61f456a26edbd28d26c65906f4bc1dcd8f"
+dependencies = [
+ "dirs-sys",
+]
+
+[[package]]
 name = "dirs-sys"
 version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1829,6 +1838,7 @@ checksum = "9a31d2a3fbaaeb2af2368bbdd904aa8e812d3c04a1ee10d3171f52d556e5d0a3"
 dependencies = [
  "futures-channel",
  "futures-core",
+ "futures-executor",
  "futures-io",
  "futures-sink",
  "futures-task",
@@ -2823,6 +2833,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "lockable"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3b0f35193d57711b7b4730a3b888a5033347fb7be1ee9a64a755fa4ee013ef80"
+dependencies = [
+ "derive_more",
+ "futures 0.3.34",
+ "itertools 0.14.0",
+ "tokio 1.54.1",
+]
+
+[[package]]
 name = "log"
 version = "0.3.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2999,6 +3021,18 @@ name = "nix"
 version = "0.31.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cf20d2fde8ff38632c426f1165ed7436270b44f199fc55284c38276f9db47c3d"
+dependencies = [
+ "bitflags 2.13.2",
+ "cfg-if 1.0.5",
+ "cfg_aliases",
+ "libc",
+]
+
+[[package]]
+name = "nix"
+version = "0.32.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "77730ed34f01f4990cb2ea67fec715ecebc6fab9a6396cf83c5529b13f581bdc"
 dependencies = [
  "bitflags 2.13.2",
  "cfg-if 1.0.5",
@@ -4699,7 +4733,7 @@ dependencies = [
  "env_logger",
  "future-utils",
  "rustic_backend",
- "rustic_core",
+ "rustic_core 0.14.0",
  "scraper",
  "serde",
  "sqlx",
@@ -4822,7 +4856,7 @@ dependencies = [
  "rand 0.10.3",
  "rayon",
  "reqwest",
- "rustic_core",
+ "rustic_core 0.13.0",
  "semver 1.0.28",
  "serde",
  "strum",
@@ -4855,7 +4889,7 @@ dependencies = [
  "crossbeam-channel",
  "derive_more",
  "derive_setters",
- "dirs",
+ "dirs 6.0.0",
  "displaydoc",
  "dunce",
  "ecow",
@@ -4869,7 +4903,7 @@ dependencies = [
  "itertools 0.15.0",
  "jiff",
  "log 0.4.34",
- "nix",
+ "nix 0.31.3",
  "pariter",
  "path-dedot",
  "quick_cache",
@@ -4891,6 +4925,62 @@ dependencies = [
  "walkdir",
  "xattr",
  "zstd 0.13.3",
+]
+
+[[package]]
+name = "rustic_core"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "51e447f0f0a43c7ad87be4c0bcf3390ad7169a0152f4ae523d23f3a0be360c00"
+dependencies = [
+ "aes256ctr_poly1305aes",
+ "backon",
+ "binrw",
+ "bytes 1.12.1",
+ "bytesize",
+ "cached",
+ "cachedir",
+ "crossbeam-channel",
+ "derive_more",
+ "derive_setters",
+ "dirs 7.0.0",
+ "displaydoc",
+ "dunce",
+ "ecow",
+ "enum-map",
+ "enumset",
+ "filetime",
+ "gethostname",
+ "hex",
+ "ignore",
+ "integer-sqrt",
+ "itertools 0.15.0",
+ "jiff",
+ "lockable",
+ "log 0.4.34",
+ "nix 0.32.0",
+ "pariter",
+ "path-dedot",
+ "quick_cache",
+ "rand 0.10.3",
+ "rayon",
+ "runtime-format",
+ "rustic_cdc",
+ "same-file",
+ "scrypt 0.12.0",
+ "serde",
+ "serde-aux",
+ "serde_derive",
+ "serde_json",
+ "serde_with",
+ "sha2 0.11.1",
+ "shell-words",
+ "smallvec 1.16.4",
+ "strum",
+ "thiserror",
+ "walkdir",
+ "xattr",
+ "zstd 0.14.3",
 ]
 
 [[package]]
@@ -5796,7 +5886,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "32497e9a4c7b38532efcdebeef879707aa9f794296a4f0244f6f69e9bc8574bd"
 dependencies = [
  "fastrand",
- "getrandom 0.3.4",
+ "getrandom 0.4.3",
  "once_cell",
  "rustix",
  "windows-sys 0.61.2",

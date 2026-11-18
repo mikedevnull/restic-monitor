@@ -5,6 +5,7 @@ pub mod auth;
 mod db;
 mod error;
 mod initial_setup;
+mod repo;
 mod testing;
 
 #[get("/")]

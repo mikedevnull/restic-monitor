@@ -45,9 +45,9 @@ dependencies = [
 
 [[package]]
 name = "actix-http"
-version = "3.22.0"
+version = "3.22.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "50f98f47b03911915aa3f0b856749aa3d3915033afabb295ab6ac5ff3b8bd5c1"
+checksum = "ef789744a2e6e678dd2dee90b2aecc084022709378f28d9d0eee6d7d299e36b8"
 dependencies = [
  "actix-codec",
  "actix-service",
@@ -6197,6 +6197,7 @@ dependencies = [
  "futures-sink",
  "libc",
  "pin-project-lite",
+ "slab",
  "tokio 1.54.1",
 ]
 
